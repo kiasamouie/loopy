@@ -1,13 +1,17 @@
 import json
+import os
 from loopyclient import LoopyClient
 import pyperclip
+from dotenv import load_dotenv
 
-client = LoopyClient(api_key="6BOPrDAHRbT2ngxSpOFLRL", api_secret="lEtY3jeOgISYyda2jX8AwWYEMwLed6iyRCSgAZz35jaPxuT98OIcOJipLeV0t5v7", username="alextunca0@gmail.com")
+load_dotenv()
+
+client = LoopyClient(api_key=os.getenv("API_KEY"), api_secret=os.getenv("API_SECRET"), username=os.getenv("API_USERNAME"))
 
 email = 'thekiadoe@gmail.com'
 kia = '1hnSgkKszttJfH'
 
-# print(client.list_cards())
+print(client.list_cards())
 
 # print(client.send_message_to_all_cards("Thank you for being a loyal customer!"))
 # print(client.send_message_to_individual_card(kia, "Thank you THEKIADOE for being the number 1 loyal customer!"))
