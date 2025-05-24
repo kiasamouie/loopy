@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Add Stamps</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>Add Stamps by Email</h1>
+    <form id="addStampsForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+        <br /><br />
+        <label for="stamps">Number of stamps:</label>
+        <input type="number" id="stamps" name="stamps" min="1" value="1" />
+        <br /><br />
+        <button type="submit">Add Stamps</button>
+    </form>
+
+    <div id="result" style="margin-top:20px;"></div>
+
+    <script>
+        $(document).ready(function () {
+            $("#addStampsForm").submit(function (e) {
+                e.preventDefault();
+
+                const email = $("#email").val();
+                const stamps = parseInt($("#stamps").val(), 10) || 1;
+
+                $.ajax({
+                    url: "https://vukgythfedemmwssgohz.supabase.co/functions/v1/add-stamps",
+                    method: "POST",
+                    contentType: "application/json",
+                    headers: {
+                        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1a2d5dGhmZWRlbW13c3Nnb2h6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcwODM5MjMsImV4cCI6MjA2MjY1OTkyM30.E9xgyfS9M_a0ObzlnSfZ4isj21texmvgIyBJ5eGT4Fo"
+                    },
+                    data: JSON.stringify({ email: email, stamps: stamps }),
+                    success: function (response) {
+                        $("#result").html(
+                            `<pre>Success! Response:\n${JSON.stringify(response, null, 2)}</pre>`
+                        );
+                    },
+                    error: function (xhr) {
+                        let errorMsg = "Unknown error";
+                        try {
+                            const res = JSON.parse(xhr.responseText);
+                            errorMsg = res.error || xhr.statusText;
+                        } catch {
+                            errorMsg = xhr.statusText;
+                        }
+                        $("#result").html(`<span style="color:red;">Error: ${errorMsg}</span>`);
+                    },
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

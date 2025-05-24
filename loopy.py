@@ -6,15 +6,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = LoopyClient(api_key=os.getenv("API_KEY"), api_secret=os.getenv("API_SECRET"), username=os.getenv("API_USERNAME"))
+client = LoopyClient(api_key=os.getenv("LOOPY_API_KEY"), api_secret=os.getenv("LOOPY_API_SECRET"), username=os.getenv("LOOPY_USERNAME"))
 
 email = 'thekiadoe@gmail.com'
 kia = '1hnSgkKszttJfH'
 
-print(client.list_cards())
+# print(client.list_cards())
+
+print(client.add_stamps(kia, 1))
 
 # print(client.send_message_to_all_cards("Thank you for being a loyal customer!"))
-# print(client.send_message_to_individual_card(kia, "Thank you THEKIADOE for being the number 1 loyal customer!"))
+# print(client.send_message_to_individual_card(kia, "Alex tunca thinks you the most loyal because of the database!"))
 
 # print(client.add_stamps(kia))
 # print(client.redeem_reward(kia))
